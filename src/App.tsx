@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import './App.css'
 import profileImage from './assets/mina-profile.jpg'
 
@@ -5,7 +6,10 @@ type Publication = {
   title: string
   summary: string
   tags: string[]
-  link?: string
+  link: string
+  year?: string
+  status?: string
+  authors?: string
 }
 
 type Project = {
@@ -15,6 +19,9 @@ type Project = {
   description: string
   tags: string[]
   link?: string
+  status?: string
+  scope?: string
+  evidence?: string
 }
 
 const publications: Publication[] = [
@@ -22,8 +29,9 @@ const publications: Publication[] = [
     title:
       'Auditing Internal Consistency in Webometrics University Rankings: A Bidirectional Historical and Peer-Calibrated Approach',
     summary:
-      'A data-driven study of ranking consistency using historical trajectories and peer-calibrated comparisons to surface unusual ranking patterns.',
+      'A data-driven study of internal consistency in Webometrics university rankings using historical trajectories and peer-calibrated comparisons to identify ranking discrepancies and unusual patterns.',
     tags: ['Webometrics', 'Ranking Analysis', 'Data Research'],
+    status: 'Research work',
     link:
       'https://www.researchgate.net/publication/412783335_Auditing_Internal_Consistency_in_Webometrics_University_Rankings_A_Bidirectional_Historical_and_Peer-Calibrated_Approach',
   },
@@ -31,29 +39,49 @@ const publications: Publication[] = [
     title:
       'Automatic Citation Style Classification Using Multilingual BERT and Transformer-Based Architecture',
     summary:
-      'Transformer-based research on automated academic citation-style classification using multilingual language representations.',
+      'Transformer-based research on automated academic citation-style classification using multilingual contextual representations.',
     tags: ['BERT', 'Transformers', 'Academic NLP'],
+    year: '2025',
+    status: 'Preprint',
+    authors: 'Mina Ibrahim · Karam Al Ghazi',
+    link:
+      'https://www.researchgate.net/publication/396353830_Automatic_Citation_Style_Classification_Using_Multilingual_BERT_and_Transformer-Based_Architecture',
   },
   {
     title:
       'Detecting Machine-Generated Arabic Text: AraBERT-LSTM for Trustworthy Low-Resource NLP',
     summary:
-      'Research on machine-generated Arabic text detection using hybrid transformer and recurrent architectures.',
+      'A hybrid AraBERT-LSTM framework for detecting machine-generated Arabic text and improving trustworthiness in low-resource NLP.',
     tags: ['Arabic NLP', 'AraBERT', 'LSTM'],
+    year: '2025',
+    status: 'Preprint',
+    authors: 'Tarek Barhoum · Mina Ibrahim · Mohamad AlBali',
+    link:
+      'https://www.researchgate.net/publication/395334508_Detecting_Machine-Generated_Arabic_Text_AraBERT-LSTM_for_Trustworthy_Low-Resource_NLP',
   },
   {
     title:
       'KM-Chat: A Large-Scale Synthetic Question-Answer Dataset for Open-Domain Conversational AI',
     summary:
-      'Large-scale synthetic question-answer data generation for open-domain conversational AI and transformer research.',
+      'A large-scale synthetic dataset containing 250,003 question-answer pairs generated for open-domain conversational AI research.',
     tags: ['Synthetic Data', 'Conversational AI', 'LLMs'],
+    year: '2025',
+    status: 'Preprint',
+    authors: 'Tarek Barhoum · Mina Ibrahim · Karam Al Ghazi',
+    link:
+      'https://www.researchgate.net/publication/394373244_KM-Chat_A_Large-Scale_Synthetic_Question-Answer_Dataset_for_Open-Domain_Conversational_AI',
   },
   {
     title:
       'Large-Scale Hybrid Dialogue Data Processing for Transformer-Based Generative Chatbots Using Pretrained DeBERTa Embeddings',
     summary:
-      'Research on large-scale dialogue processing and transformer-based generative conversational systems.',
+      'Large-scale dialogue processing and transformer-based generative chatbot research using pretrained DeBERTa representations.',
     tags: ['DeBERTa', 'Dialogue Systems', 'NLP'],
+    year: '2025',
+    status: 'Preprint',
+    authors: 'Tarek Barhoum · Mina Ibrahim · Karam Al Ghazi',
+    link:
+      'https://www.researchgate.net/publication/395337384_Large-Scale_Hybrid_Dialogue_Data_Processing_for_Transformer-Based_Generative_Chatbots_Using_Pretrained_DeBERTa_Embeddings',
   },
 ]
 
@@ -65,6 +93,9 @@ const projects: Project[] = [
     description:
       'A composable multi-agent architecture combining orchestration, Hybrid RAG, vector retrieval, knowledge graphs, tool use, coding workflows, and automated evaluation.',
     tags: ['Multi-Agent', 'Hybrid RAG', 'Knowledge Graphs', 'LLM Systems'],
+    status: 'PUBLIC · OPEN SOURCE',
+    scope: 'ARCHITECTURE / RAG / AGENTS',
+    evidence: 'GitHub repository',
     link: 'https://github.com/MinaIbrahim10/Agentic-Nexus',
   },
   {
@@ -74,6 +105,9 @@ const projects: Project[] = [
     description:
       'Designed the architecture, attention mechanism, tokenizer, training pipeline, evaluation workflow, and FastAPI inference layer for a custom transformer-based conversational model.',
     tags: ['Transformers', '100K+ Q&A', 'FastAPI', 'Training'],
+    status: 'ENGINEERING PROJECT',
+    scope: 'MODEL / TRAINING / INFERENCE',
+    evidence: 'Architecture & implementation',
   },
   {
     index: '03',
@@ -82,6 +116,9 @@ const projects: Project[] = [
     description:
       'An intelligent journal platform for submission screening, classification, reviewer matching, citation analysis, plagiarism signals, summarization, and editorial workflows.',
     tags: ['NLP', 'FastAPI', 'Research Systems', 'Full Stack'],
+    status: 'FULL-STACK AI SYSTEM',
+    scope: 'NLP / BACKEND / WORKFLOWS',
+    evidence: 'End-to-end system',
   },
   {
     index: '04',
@@ -90,6 +127,9 @@ const projects: Project[] = [
     description:
       'Historical and peer-calibrated analysis of university rankings designed to detect internal inconsistencies, unusual trajectories, and ranking discrepancies.',
     tags: ['Data Analysis', 'Research', 'Ranking Systems', 'Statistics'],
+    status: 'RESEARCH SYSTEM',
+    scope: 'DATA / STATISTICS / AUDIT',
+    evidence: 'Research methodology',
   },
   {
     index: '05',
@@ -98,6 +138,9 @@ const projects: Project[] = [
     description:
       'A complete hotel-management platform covering reservations, guest profiles, operational analytics, APIs, database architecture, frontend integration, and deployment.',
     tags: ['FastAPI', 'Architecture', 'Database', 'Deployment'],
+    status: 'PRODUCTION SOFTWARE',
+    scope: 'FULL STACK / DATABASE / DEPLOYMENT',
+    evidence: 'Live project',
     link: 'https://hotel1000.me',
   },
   {
@@ -107,6 +150,9 @@ const projects: Project[] = [
     description:
       'AI-based defect-detection pipelines across image, text, and audio using TensorFlow, Transformers, OpenCV, and custom CNN architectures.',
     tags: ['TensorFlow', 'Computer Vision', 'CNN', 'OpenCV'],
+    status: 'DEEP LEARNING SYSTEM',
+    scope: 'VISION / TEXT / AUDIO',
+    evidence: 'Model engineering',
   },
 ]
 
@@ -151,28 +197,112 @@ const selectedContributions = [
     title: 'DTensor collective-key synchronization',
     href: 'https://github.com/tensorflow/tensorflow/pull/125581',
   },
+  {
+    pr: '#125569',
+    title: 'DType free-threading declaration',
+    href: 'https://github.com/tensorflow/tensorflow/pull/125569',
+  },
+  {
+    pr: '#125566',
+    title: 'Runtime flag extension safety',
+    href: 'https://github.com/tensorflow/tensorflow/pull/125566',
+  },
+  {
+    pr: '#125564',
+    title: 'Small native extension safety',
+    href: 'https://github.com/tensorflow/tensorflow/pull/125564',
+  },
+  {
+    pr: '#125493',
+    title: 'CPython 3.14t wheel ABI tagging',
+    href: 'https://github.com/tensorflow/tensorflow/pull/125493',
+  },
 ]
 
 const expertise = [
   {
     number: '01',
     title: 'AI Systems',
-    items: ['LLMs', 'Agentic AI', 'RAG', 'Multi-Agent Systems', 'Synthetic Data'],
+    items: [
+      'Large Language Models',
+      'Generative AI',
+      'Agentic AI',
+      'Multi-Agent Systems',
+      'RAG',
+      'Hybrid RAG',
+      'Knowledge Graphs',
+      'Synthetic Data',
+    ],
   },
   {
     number: '02',
-    title: 'Machine Learning',
-    items: ['TensorFlow', 'PyTorch', 'NLP', 'Arabic NLP', 'Computer Vision'],
+    title: 'ML & Deep Learning',
+    items: [
+      'Machine Learning',
+      'Deep Learning',
+      'Transformers',
+      'CNN Architectures',
+      'LSTM / Seq2Seq',
+      'Attention Mechanisms',
+      'Model Fine-Tuning',
+      'Model Evaluation',
+    ],
   },
   {
     number: '03',
-    title: 'Runtime Engineering',
-    items: ['CPython', 'C++', 'pybind11', 'Free-Threading', 'Concurrency'],
+    title: 'NLP & Research',
+    items: [
+      'Natural Language Processing',
+      'Arabic NLP',
+      'Conversational AI',
+      'BERT',
+      'DeBERTa',
+      'AraBERT',
+      'Dataset Curation',
+      'Research Experimentation',
+    ],
   },
   {
     number: '04',
-    title: 'Infrastructure',
-    items: ['FastAPI', 'Linux', 'Bazel', 'CUDA', 'REST APIs'],
+    title: 'Runtime & Open Source',
+    items: [
+      'CPython Free-Threading',
+      'Python / C++ Boundaries',
+      'Python C API',
+      'pybind11',
+      'Concurrency',
+      'Synchronization',
+      'Object Lifetime',
+      'TensorFlow Upstream',
+    ],
+  },
+  {
+    number: '05',
+    title: 'Frameworks & Backend',
+    items: [
+      'TensorFlow',
+      'PyTorch',
+      'Hugging Face',
+      'OpenCV',
+      'FastAPI',
+      'REST APIs',
+      'JWT / Authentication',
+      'Database Integration',
+    ],
+  },
+  {
+    number: '06',
+    title: 'Systems & Tooling',
+    items: [
+      'Python',
+      'C++',
+      'Linux',
+      'Bazel',
+      'Git / GitHub',
+      'CUDA',
+      'GPU Computing',
+      'Reverse Proxy / HTTPS',
+    ],
   },
 ]
 
@@ -193,10 +323,85 @@ function ExternalIcon() {
 }
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    document.body.classList.toggle('menu-open', menuOpen)
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape)
+
+    return () => {
+      document.body.classList.remove('menu-open')
+      window.removeEventListener('keydown', handleEscape)
+    }
+  }, [menuOpen])
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches
+
+    if (reduceMotion) return
+
+    const elements = document.querySelectorAll<HTMLElement>(
+      [
+        '.statement-copy',
+        '.statement-aside',
+        '.project-row',
+        '.release-feature',
+        '.runtime-visual',
+        '.contribution-panel',
+        '.opensource-proof',
+        '.research-profile',
+        '.publication',
+        '.expertise-card',
+        '.experience-section article',
+        '.education-section > div',
+        '.contact-section > *',
+      ].join(',')
+    )
+
+    elements.forEach((element) => {
+      element.classList.add('reveal-target')
+    })
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return
+
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
+        })
+      },
+      {
+        threshold: 0.08,
+        rootMargin: '0px 0px -6% 0px',
+      }
+    )
+
+    elements.forEach((element) => observer.observe(element))
+
+    return () => observer.disconnect()
+  }, [])
+
+  const closeMenu = () => setMenuOpen(false)
+
   return (
     <div className="site-shell">
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Mina Ibrahim home">
+        <a
+          className="brand"
+          href="#top"
+          aria-label="Mina Ibrahim home"
+          onClick={closeMenu}
+        >
           <span className="brand-mark">MI</span>
           <span className="brand-text">
             <strong>Mina Ibrahim</strong>
@@ -208,6 +413,7 @@ function App() {
           <a href="#work">Work</a>
           <a href="#opensource">Open Source</a>
           <a href="#research">Research</a>
+          <a href="#skills">Skills</a>
           <a href="#experience">Experience</a>
         </nav>
 
@@ -218,6 +424,77 @@ function App() {
           Contact
           <ArrowIcon />
         </a>
+
+        <button
+          className={`menu-toggle ${menuOpen ? 'is-open' : ''}`}
+          type="button"
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span />
+          <span />
+        </button>
+
+        <div
+          className={`mobile-menu ${menuOpen ? 'is-open' : ''}`}
+          id="mobile-navigation"
+          aria-hidden={!menuOpen}
+        >
+          <div className="mobile-menu-inner">
+            <div className="mobile-menu-label">
+              <span>NAVIGATION</span>
+              <span>MINA IBRAHIM / PORTFOLIO</span>
+            </div>
+
+            <nav aria-label="Mobile navigation">
+              <a href="#work" onClick={closeMenu}>
+                <span>01</span>
+                Work
+              </a>
+
+              <a href="#opensource" onClick={closeMenu}>
+                <span>02</span>
+                Open Source
+              </a>
+
+              <a href="#research" onClick={closeMenu}>
+                <span>03</span>
+                Research
+              </a>
+
+              <a href="#skills" onClick={closeMenu}>
+                <span>04</span>
+                Skills
+              </a>
+
+              <a href="#experience" onClick={closeMenu}>
+                <span>05</span>
+                Experience
+              </a>
+            </nav>
+
+            <div className="mobile-menu-footer">
+              <a
+                href="mailto:minaibrahim190@gmail.com"
+                onClick={closeMenu}
+              >
+                Contact
+                <ArrowIcon />
+              </a>
+
+              <a
+                href="/Mina_Ibrahim_CV_ATS_Final.pdf"
+                download="Mina_Ibrahim_CV.pdf"
+                onClick={closeMenu}
+              >
+                Download CV
+                <ArrowIcon />
+              </a>
+            </div>
+          </div>
+        </div>
       </header>
 
       <main>
@@ -264,8 +541,8 @@ function App() {
                   <strong>AI Systems & Runtime Engineering</strong>
                 </div>
                 <div>
-                  <span>BASED</span>
-                  <strong>Damascus · Remote</strong>
+                  <span>WORK MODE</span>
+                  <strong>Remote</strong>
                 </div>
               </div>
             </div>
@@ -339,15 +616,31 @@ function App() {
                   <div className="project-number">{project.index}</div>
 
                   <div className="project-main">
-                    <p className="project-eyebrow">{project.eyebrow}</p>
+                    <div className="project-topline">
+                      <p className="project-eyebrow">{project.eyebrow}</p>
+
+                      {project.status && (
+                        <span className="project-status">
+                          {project.status}
+                        </span>
+                      )}
+                    </div>
+
                     <h3>{project.title}</h3>
                     <p>{project.description}</p>
                   </div>
 
-                  <div className="project-tags">
-                    {project.tags.map((tag) => (
-                      <span key={tag}>{tag}</span>
-                    ))}
+                  <div className="project-side">
+                    <div className="project-tags">
+                      {project.tags.map((tag) => (
+                        <span key={tag}>{tag}</span>
+                      ))}
+                    </div>
+
+                    <div className="project-evidence">
+                      {project.scope && <span>{project.scope}</span>}
+                      {project.evidence && <strong>{project.evidence}</strong>}
+                    </div>
                   </div>
 
                   <div className="project-arrow">
@@ -394,6 +687,99 @@ function App() {
             </p>
           </div>
 
+          <article className="release-feature">
+            <div className="release-label">
+              <span>FEATURED ENGINEERING RELEASE</span>
+              <span>UNOFFICIAL · EXPERIMENTAL</span>
+            </div>
+
+            <div className="release-layout">
+              <div className="release-main">
+                <p className="eyebrow eyebrow-light">
+                  TENSORFLOW · CPYTHON FREE-THREADING
+                </p>
+
+                <h3>
+                  TensorFlow 2.22.0
+                  <span>Experimental CPython 3.14t Build</span>
+                </h3>
+
+                <p>
+                  A public experimental TensorFlow build for CPython 3.14.7
+                  free-threaded on Linux x86_64, using the
+                  <code> cp314t </code>
+                  ABI and a companion free-threaded gRPC wheel.
+                </p>
+
+                <div className="release-actions">
+                  <a
+                    href="https://github.com/MinaIbrahim10/tensorflow/releases/tag/tensorflow-2.22.0-py314t-exp1"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View experimental release
+                    <ExternalIcon />
+                  </a>
+
+                  <a
+                    href="https://github.com/MinaIbrahim10/tensorflow/releases/tag/py314t-natural-import-pass-20260819"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Working snapshot
+                    <ExternalIcon />
+                  </a>
+                </div>
+              </div>
+
+              <div className="release-spec">
+                <div>
+                  <span>CPYTHON</span>
+                  <strong>3.14.7 free-threaded</strong>
+                </div>
+                <div>
+                  <span>ABI</span>
+                  <strong>cp314-cp314t</strong>
+                </div>
+                <div>
+                  <span>PLATFORM</span>
+                  <strong>Linux x86_64</strong>
+                </div>
+                <div>
+                  <span>TENSORFLOW</span>
+                  <strong>2.22.0-dev0+selfbuilt</strong>
+                </div>
+              </div>
+            </div>
+
+            <div className="release-proof">
+              <div>
+                <strong>GIL OFF</strong>
+                <span>before and after TensorFlow import</span>
+              </div>
+
+              <div>
+                <strong>800</strong>
+                <span>concurrent TensorFlow operation batches</span>
+              </div>
+
+              <div>
+                <strong>800</strong>
+                <span>synchronous gRPC RPCs</span>
+              </div>
+
+              <div>
+                <strong>500</strong>
+                <span>asynchronous gRPC RPCs</span>
+              </div>
+            </div>
+
+            <p className="release-note">
+              This is an independent experimental community build and is not
+              an official TensorFlow release.
+            </p>
+          </article>
+
           <div className="opensource-grid">
             <div className="runtime-visual">
               <div className="runtime-topline">
@@ -426,12 +812,12 @@ function App() {
 
             <div className="contribution-panel">
               <div className="panel-heading">
-                <span>SELECTED MERGED UPSTREAM WORK</span>
+                <span>6 SELECTED / 12 MERGED UPSTREAM</span>
                 <span>tensorflow/tensorflow</span>
               </div>
 
               <div className="contribution-list">
-                {selectedContributions.map((contribution) => (
+                {selectedContributions.slice(0, 6).map((contribution) => (
                   <a
                     href={contribution.href}
                     target="_blank"
@@ -456,6 +842,120 @@ function App() {
               </a>
             </div>
           </div>
+
+          <div className="opensource-proof">
+            <div className="proof-heading">
+              <span>OPEN-SOURCE RECORD / VERIFIED PUBLIC WORK</span>
+              <p>
+                Independent upstream engineering across TensorFlow's
+                free-threaded Python ecosystem.
+              </p>
+            </div>
+
+            <div className="opensource-metrics">
+              <div>
+                <strong>12</strong>
+                <span>Merged TensorFlow PRs</span>
+              </div>
+
+              <div>
+                <strong>54</strong>
+                <span>TensorFlow native modules reached by natural 3.14t import</span>
+              </div>
+
+              <div>
+                <strong>3</strong>
+                <span>Upstream codebases</span>
+              </div>
+
+              <div>
+                <strong>cp314t</strong>
+                <span>Free-threaded wheel ABI</span>
+              </div>
+            </div>
+
+            <div className="ecosystem-work">
+              <a
+                href="https://github.com/tensorflow/tensorflow/pulls?q=is%3Apr+author%3AMinaIbrahim10"
+                target="_blank"
+                rel="noreferrer"
+                className="ecosystem-entry"
+              >
+                <div className="ecosystem-index">01</div>
+
+                <div>
+                  <span>TENSORFLOW / UPSTREAM</span>
+                  <h3>CPython free-threading compatibility</h3>
+                  <p>
+                    Native synchronization, Python object ownership,
+                    pybind11 module safety, ABI handling, and runtime
+                    compatibility across TensorFlow's Python/C++ boundary.
+                  </p>
+                </div>
+
+                <div className="ecosystem-state merged">
+                  12 MERGED
+                </div>
+
+                <ExternalIcon />
+              </a>
+
+              <a
+                href="https://github.com/grpc/grpc/pull/43278"
+                target="_blank"
+                rel="noreferrer"
+                className="ecosystem-entry"
+              >
+                <div className="ecosystem-index">02</div>
+
+                <div>
+                  <span>GRPC / UPSTREAM PR #43278</span>
+                  <h3>Free-threaded support for cygrpc</h3>
+                  <p>
+                    Adds Cython free-threading compatibility and regression
+                    coverage so importing cygrpc does not re-enable the GIL
+                    on CPython 3.14t.
+                  </p>
+                </div>
+
+                <div className="ecosystem-state open">
+                  OPEN
+                </div>
+
+                <ExternalIcon />
+              </a>
+
+              <a
+                href="https://github.com/google-ml-infra/rules_ml_toolchain/pull/302"
+                target="_blank"
+                rel="noreferrer"
+                className="ecosystem-entry"
+              >
+                <div className="ecosystem-index">03</div>
+
+                <div>
+                  <span>RULES_ML_TOOLCHAIN / UPSTREAM PR #302</span>
+                  <h3>Free-threaded Python toolchain normalization</h3>
+                  <p>
+                    Normalizes the hermetic Python version kind required for
+                    rules_python to select CPython free-threaded toolchains
+                    correctly.
+                  </p>
+                </div>
+
+                <div className="ecosystem-state open">
+                  OPEN
+                </div>
+
+                <ExternalIcon />
+              </a>
+            </div>
+
+            <p className="opensource-disclaimer">
+              Independent open-source contributions to public upstream
+              projects. No employment or organizational affiliation is implied.
+            </p>
+          </div>
         </section>
 
         <section className="research-section section" id="research">
@@ -471,15 +971,85 @@ function App() {
             </p>
           </div>
 
+          <div className="research-profile">
+            <div className="research-profile-intro">
+              <span>RESEARCH PROFILE / 2025—PRESENT</span>
+              <h3>
+                Applied AI research across
+                <em>language, data, and trustworthy systems.</em>
+              </h3>
+            </div>
+
+            <div className="research-profile-stats">
+              <div>
+                <strong>5</strong>
+                <span>Selected research works</span>
+              </div>
+              <div>
+                <strong>Q&A</strong>
+                <span>Large-scale synthetic dialogue research</span>
+              </div>
+              <div>
+                <strong>NLP</strong>
+                <span>Primary research domain</span>
+              </div>
+            </div>
+
+            <div className="research-identifiers">
+              <a
+                href="https://orcid.org/0009-0005-6133-8384"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span>ORCID</span>
+                <strong>0009-0005-6133-8384</strong>
+                <ExternalIcon />
+              </a>
+
+              <a
+                href="https://www.researchgate.net/profile/Mina-Ibrahim-32"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span>RESEARCHGATE</span>
+                <strong>Research profile · 9 publications</strong>
+                <ExternalIcon />
+              </a>
+
+              <div>
+                <span>RESEARCH AREAS</span>
+                <strong>
+                  Transformers · Arabic NLP · Synthetic Data · Conversational AI
+                  · Ranking Analysis
+                </strong>
+              </div>
+            </div>
+          </div>
+
           <div className="publications">
             {publications.map((publication, index) => (
-              <article className="publication" key={publication.title}>
+              <article
+                className={`publication ${index === 0 ? 'publication-featured' : ''}`}
+                key={publication.title}
+              >
                 <div className="publication-index">
                   {String(index + 1).padStart(2, '0')}
                 </div>
 
                 <div className="publication-content">
+                  <div className="publication-meta">
+                    {publication.year && <span>{publication.year}</span>}
+                    {publication.status && <span>{publication.status}</span>}
+                  </div>
+
                   <h3>{publication.title}</h3>
+
+                  {publication.authors && (
+                    <p className="publication-authors">
+                      {publication.authors}
+                    </p>
+                  )}
+
                   <p>{publication.summary}</p>
 
                   <div className="publication-tags">
@@ -490,25 +1060,22 @@ function App() {
                 </div>
 
                 <div className="publication-action">
-                  {publication.link ? (
-                    <a
-                      href={publication.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`Open ${publication.title}`}
-                    >
-                      <ExternalIcon />
-                    </a>
-                  ) : (
-                    <span className="publication-mark">R</span>
-                  )}
+                  <a
+                    href={publication.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`View publication: ${publication.title}`}
+                  >
+                    <span>View publication</span>
+                    <ExternalIcon />
+                  </a>
                 </div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="expertise-section section">
+        <section className="expertise-section section" id="skills">
           <div className="section-heading">
             <div>
               <p className="eyebrow">TECHNICAL PRACTICE</p>
@@ -519,6 +1086,31 @@ function App() {
               A cross-disciplinary stack connecting AI research with systems
               engineering and production delivery.
             </p>
+          </div>
+
+          <div className="professional-positioning">
+            <div className="positioning-label">
+              PROFESSIONAL POSITIONING
+            </div>
+
+            <div className="positioning-copy">
+              <h3>
+                AI Engineer & Researcher
+                <span>TensorFlow Open-Source Contributor</span>
+              </h3>
+
+              <p>
+                LLMs · Agentic AI · RAG · ML Systems
+              </p>
+            </div>
+
+            <div className="positioning-note">
+              <span>WORKING ACROSS</span>
+              <p>
+                AI research, production machine learning, native runtime
+                engineering, open-source infrastructure, and backend systems.
+              </p>
+            </div>
           </div>
 
           <div className="expertise-grid">
@@ -562,10 +1154,26 @@ function App() {
               </p>
               <h3>Library Systems & Infrastructure Engineer</h3>
               <p>
-                Deploying and managing digital library and institutional
-                repository infrastructure for universities using Koha, DSpace,
-                and FOLIO.
+                Deploying and operating university digital-library and
+                institutional-repository infrastructure across Koha, DSpace,
+                and FOLIO — from application and database layers through secure
+                public web access.
               </p>
+
+              <ul className="experience-responsibilities">
+                <li>
+                  Configure Linux services, databases, domains, reverse proxies,
+                  HTTPS, permissions, backups, and ongoing system maintenance.
+                </li>
+                <li>
+                  Troubleshoot deployment, integration, authentication,
+                  networking, and server reliability issues.
+                </li>
+                <li>
+                  Support universities in maintaining reliable and publicly
+                  accessible research infrastructure.
+                </li>
+              </ul>
             </div>
 
             <div className="experience-details">
@@ -616,6 +1224,15 @@ function App() {
             </a>
 
             <a
+              className="button button-secondary"
+              href="/Mina_Ibrahim_CV_ATS_Final.pdf"
+              download="Mina_Ibrahim_CV.pdf"
+            >
+              Download CV
+              <ArrowIcon />
+            </a>
+
+            <a
               className="text-link"
               href="https://www.linkedin.com/in/mina-ibrahim-59a014247/"
               target="_blank"
@@ -633,6 +1250,34 @@ function App() {
             >
               GitHub
               <ExternalIcon />
+            </a>
+
+            <a
+              className="text-link"
+              href="https://www.researchgate.net/profile/Mina-Ibrahim-32"
+              target="_blank"
+              rel="noreferrer"
+            >
+              ResearchGate
+              <ExternalIcon />
+            </a>
+
+            <a
+              className="text-link"
+              href="https://orcid.org/0009-0005-6133-8384"
+              target="_blank"
+              rel="noreferrer"
+            >
+              ORCID
+              <ExternalIcon />
+            </a>
+
+            <a
+              className="text-link"
+              href="mailto:minaibrahim190@gmail.com"
+            >
+              Email
+              <ArrowIcon />
             </a>
           </div>
         </section>
