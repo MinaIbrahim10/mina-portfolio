@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+
+:root {
+  font-family: 'Manrope', system-ui, sans-serif;
+  color: #151713;
+  background: #f3f1eb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --paper: #f3f1eb;
+  --paper-soft: #ebe8df;
+  --ink: #151713;
+  --muted: #6d7068;
+  --line: rgba(21, 23, 19, 0.16);
+  --line-strong: rgba(21, 23, 19, 0.32);
+  --dark: #11130f;
+  --dark-soft: #181b16;
+  --light: #f7f5ef;
+  --signal: #b8ff3f;
+  --signal-soft: rgba(184, 255, 63, 0.12);
+  --serif: 'Playfair Display', Georgia, serif;
+  --mono: 'DM Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body,
+button,
+a {
+  font-family: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4 {
+  margin-top: 0;
+}
+
+::selection {
+  background: var(--signal);
+  color: var(--ink);
+}
+
+#root {
+  min-height: 100vh;
+}
