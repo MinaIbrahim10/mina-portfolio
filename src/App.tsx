@@ -146,14 +146,15 @@ const projects: Project[] = [
   },
   {
     index: '06',
-    title: 'Multimodal Defect Detection',
+    title: 'Multimodal Deepfake Detection',
     eyebrow: 'DEEP LEARNING',
     description:
-      'AI-based defect-detection pipelines across image, text, and audio using TensorFlow, Transformers, OpenCV, and custom CNN architectures.',
-    tags: ['TensorFlow', 'Computer Vision', 'CNN', 'OpenCV'],
+      'Multimodal deepfake-detection pipelines across image, text, and audio using deep learning, CNN architectures, OpenCV, LSTM models, and FastAPI inference endpoints.',
+    tags: ['Deep Learning', 'Computer Vision', 'CNN', 'OpenCV'],
     status: 'DEEP LEARNING SYSTEM',
     scope: 'VISION / TEXT / AUDIO',
-    evidence: 'Model engineering',
+    evidence: 'Public GitHub repository',
+    link: 'https://github.com/MinaIbrahim10/deepfake-detection',
   },
 ]
 
