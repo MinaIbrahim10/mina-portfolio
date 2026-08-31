@@ -553,7 +553,12 @@ function App() {
 
             <aside className="hero-profile">
               <div className="portrait-frame">
-                <img src={profileImage} alt="Mina Ibrahim" />
+                <img
+                  src={profileImage}
+                  alt="Mina Ibrahim"
+                  width="800"
+                  height="1000"
+                />
                 <span className="portrait-index">01 / PROFILE</span>
               </div>
 
