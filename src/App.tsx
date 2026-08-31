@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useForm, ValidationError } from '@formspree/react'
 import './App.css'
 import profileImage from './assets/mina-profile.jpg'
 
@@ -324,6 +325,7 @@ function ExternalIcon() {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [formState, handleFormSubmit] = useForm('xgaeoglw')
 
   useEffect(() => {
     document.body.classList.toggle('menu-open', menuOpen)
@@ -1213,6 +1215,66 @@ function App() {
             I am interested in AI systems, ML infrastructure, TensorFlow,
             runtime engineering, Agentic AI, NLP, and applied research.
           </p>
+
+          <form className="contact-form" onSubmit={handleFormSubmit}>
+            <div className="contact-form-field">
+              <label htmlFor="contact-name">Name</label>
+              <input
+                id="contact-name"
+                type="text"
+                name="name"
+                placeholder="Your name"
+                required
+              />
+            </div>
+
+            <div className="contact-form-field">
+              <label htmlFor="contact-email">Email</label>
+              <input
+                id="contact-email"
+                type="email"
+                name="email"
+                placeholder="you@example.com"
+                required
+              />
+              <ValidationError
+                prefix="Email"
+                field="email"
+                errors={formState.errors}
+              />
+            </div>
+
+            <div className="contact-form-field contact-form-message">
+              <label htmlFor="contact-message">Message</label>
+              <textarea
+                id="contact-message"
+                name="message"
+                placeholder="Tell me what you are working on..."
+                rows={5}
+                required
+              />
+              <ValidationError
+                prefix="Message"
+                field="message"
+                errors={formState.errors}
+              />
+            </div>
+
+            <button
+              className="button button-primary"
+              type="submit"
+              disabled={formState.submitting}
+            >
+              {formState.submitting ? 'Sending...' : 'Send Message'}
+              <ArrowIcon />
+            </button>
+
+            {formState.succeeded && (
+              <p className="contact-form-success">
+                Message sent successfully. I will get back to you soon.
+              </p>
+            )}
+          </form>
 
           <div className="contact-actions">
             <a
