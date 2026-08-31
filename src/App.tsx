@@ -327,6 +327,7 @@ function ExternalIcon() {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [formState, handleFormSubmit] = useForm('xgaeoglw')
+  const [formError, setFormError] = useState('')
 
   useEffect(() => {
     document.body.classList.toggle('menu-open', menuOpen)
@@ -1217,7 +1218,34 @@ function App() {
             runtime engineering, Agentic AI, NLP, and applied research.
           </p>
 
-          <form className="contact-form" onSubmit={handleFormSubmit}>
+          <form
+            className="contact-form"
+            onSubmit={(event) => {
+              const form = event.currentTarget
+              const data = new FormData(form)
+
+              const name = String(data.get('name') || '').trim()
+              const message = String(data.get('message') || '').trim()
+
+              const hasLetters = /[A-Za-zÀ-ÿ\u0600-\u06FF]/.test(name)
+              const usefulMessage = /[A-Za-z0-9À-ÿ\u0600-\u06FF]/.test(message)
+
+              if (!hasLetters) {
+                event.preventDefault()
+                setFormError('Please enter a valid name.')
+                return
+              }
+
+              if (message.length < 10 || !usefulMessage) {
+                event.preventDefault()
+                setFormError('Please enter a meaningful message of at least 10 characters.')
+                return
+              }
+
+              setFormError('')
+              handleFormSubmit(event)
+            }}
+          >
             <div className="contact-form-field">
               <label htmlFor="contact-name">Name</label>
               <input
@@ -1260,6 +1288,12 @@ function App() {
                 errors={formState.errors}
               />
             </div>
+
+            {formError && (
+              <p className="contact-form-error" role="alert">
+                {formError}
+              </p>
+            )}
 
             <button
               className="button button-primary"
