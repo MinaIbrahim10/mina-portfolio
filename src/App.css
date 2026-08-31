@@ -4965,3 +4965,71 @@ a.project-row:hover::before {
     padding: 24px 16px;
   }
 }
+
+/* =========================================================
+   Mobile usability & accessibility audit fixes
+   ========================================================= */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 4px;
+}
+
+/* Give small standalone links a comfortable interaction target. */
+.text-link,
+.release-actions a,
+.opensource-link,
+.site-footer > a {
+  min-height: 44px;
+}
+
+/* Preserve the editorial typography while avoiding unreadably small
+   interface and evidence text on narrow screens. */
+@media (max-width: 760px) {
+  .eyebrow,
+  .section-index,
+  .project-eyebrow,
+  .project-status,
+  .project-evidence,
+  .profile-note small,
+  .hero-meta span,
+  .hero-strip span,
+  .panel-heading,
+  .experience-period,
+  .experience-details span,
+  .education-meta,
+  .positioning-label,
+  .positioning-copy p,
+  .positioning-note span,
+  .release-label,
+  .release-spec span,
+  .release-spec strong,
+  .release-proof span,
+  .release-note,
+  .satellite {
+    font-size: max(10px, 0.625rem);
+    line-height: 1.55;
+  }
+
+  .expertise-card li,
+  .profile-note p,
+  .release-main > p:not(.eyebrow) {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .text-link,
+  .release-actions a,
+  .opensource-link,
+  .site-footer > a {
+    font-size: 11px;
+    padding-block: 8px;
+  }
+
+  .contact-form label {
+    font-size: 10px;
+  }
+}
