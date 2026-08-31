@@ -1274,6 +1274,16 @@ function App() {
 
             <a
               className="text-link"
+              href="https://calendly.com/minaibrahim190/30-minute-meeting-with-mina-ibrahim"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Book a Call
+              <ExternalIcon />
+            </a>
+
+            <a
+              className="text-link"
               href="mailto:minaibrahim190@gmail.com"
             >
               Email
