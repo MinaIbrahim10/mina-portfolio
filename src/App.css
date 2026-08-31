@@ -4946,3 +4946,22 @@ a.project-row:hover::before {
     justify-content: center;
   }
 }
+
+/* Final contact form spacing refinement */
+.contact-form {
+  width: min(100%, 900px);
+  margin: 42px auto 58px;
+  padding: 34px 36px;
+}
+
+.contact-section .contact-copy {
+  margin-bottom: 0;
+}
+
+@media (max-width: 760px) {
+  .contact-form {
+    width: 100%;
+    margin: 32px 0 44px;
+    padding: 24px 16px;
+  }
+}
