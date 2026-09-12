@@ -89,6 +89,18 @@ const publications: Publication[] = [
 const projects: Project[] = [
   {
     index: '01',
+    title: 'Research & Intelligence Agent',
+    eyebrow: 'AGENTIC RESEARCH / EVIDENCE SYSTEMS',
+    description:
+      'An evidence-first LangGraph research system that plans searches, fetches full pages, extracts and filters evidence, consolidates and verifies claims, measures coverage, and produces cited reports with streamed execution progress.',
+    tags: ['LangGraph', 'Agentic Research', 'Verification', 'SearXNG'],
+    status: 'PUBLIC · OPEN SOURCE',
+    scope: 'AGENTS / EVIDENCE / EVALUATION',
+    evidence: 'GitHub repository',
+    link: 'https://github.com/MinaIbrahim10/research-intelligence-agent',
+  },
+  {
+    index: '02',
     title: 'Agentic-Nexus',
     eyebrow: 'OPEN-SOURCE / AGENTIC AI',
     description:
@@ -100,52 +112,31 @@ const projects: Project[] = [
     link: 'https://github.com/MinaIbrahim10/Agentic-Nexus',
   },
   {
-    index: '02',
-    title: 'Transformer LLM From Scratch',
-    eyebrow: 'LANGUAGE MODEL ENGINEERING',
-    description:
-      'Designed the architecture, attention mechanism, tokenizer, training pipeline, evaluation workflow, and FastAPI inference layer for a custom transformer-based conversational model.',
-    tags: ['Transformers', '100K+ Q&A', 'FastAPI', 'Training'],
-    status: 'ENGINEERING PROJECT',
-    scope: 'MODEL / TRAINING / INFERENCE',
-    evidence: 'Architecture & implementation',
-  },
-  {
     index: '03',
-    title: 'AI-Powered Journal Management',
-    eyebrow: 'ACADEMIC AI SYSTEM',
+    title: 'Vision Relevance Engine',
+    eyebrow: 'MULTIMODAL AI / SEMANTIC RETRIEVAL',
     description:
-      'An intelligent journal platform for submission screening, classification, reviewer matching, citation analysis, plagiarism signals, summarization, and editorial workflows.',
-    tags: ['NLP', 'FastAPI', 'Research Systems', 'Full Stack'],
-    status: 'FULL-STACK AI SYSTEM',
-    scope: 'NLP / BACKEND / WORKFLOWS',
-    evidence: 'End-to-end system',
+      'A multi-tenant image-understanding and semantic matching engine with structured vision metadata, embeddings, confidence-aware mismatch guards, background processing, human review, evaluation, and AI cost tracking.',
+    tags: ['Computer Vision', 'Embeddings', 'FastAPI', 'Human Review'],
+    status: 'PUBLIC · OPEN SOURCE',
+    scope: 'VISION / RETRIEVAL / EVALUATION',
+    evidence: 'GitHub repository',
+    link: 'https://github.com/MinaIbrahim10/vision-relevance-engine',
   },
   {
     index: '04',
-    title: 'Webometrics Ranking Audit',
-    eyebrow: 'DATA RESEARCH',
+    title: 'Decision Flow AI',
+    eyebrow: 'VISUAL AGENT WORKFLOWS',
     description:
-      'Historical and peer-calibrated analysis of university rankings designed to detect internal inconsistencies, unusual trajectories, and ranking discrepancies.',
-    tags: ['Data Analysis', 'Research', 'Ranking Systems', 'Statistics'],
-    status: 'RESEARCH SYSTEM',
-    scope: 'DATA / STATISTICS / AUDIT',
-    evidence: 'Research methodology',
+      'A visual AI decision-workflow builder with typed YES/NO branching, Ollama and OpenAI execution, Inngest steps, graph validation, execution tracing, local persistence, and automated tests.',
+    tags: ['Next.js', 'React Flow', 'Inngest', 'LLM Workflows'],
+    status: 'PUBLIC · OPEN SOURCE',
+    scope: 'AGENTS / WORKFLOWS / UX',
+    evidence: 'GitHub repository',
+    link: 'https://github.com/MinaIbrahim10/decision-flow-ai',
   },
   {
     index: '05',
-    title: 'Hotel 1000',
-    eyebrow: 'PRODUCTION SOFTWARE',
-    description:
-      'A complete hotel-management platform covering reservations, guest profiles, operational analytics, APIs, database architecture, frontend integration, and deployment.',
-    tags: ['FastAPI', 'Architecture', 'Database', 'Deployment'],
-    status: 'PRODUCTION SOFTWARE',
-    scope: 'FULL STACK / DATABASE / DEPLOYMENT',
-    evidence: 'Live project',
-    link: 'https://hotel1000.me',
-  },
-  {
-    index: '06',
     title: 'Multimodal Deepfake Detection',
     eyebrow: 'DEEP LEARNING',
     description:
@@ -155,6 +146,19 @@ const projects: Project[] = [
     scope: 'VISION / TEXT / AUDIO',
     evidence: 'Public GitHub repository',
     link: 'https://github.com/MinaIbrahim10/deepfake-detection',
+  },
+  {
+    index: '06',
+    title: 'Webometrics Ranking Audit',
+    eyebrow: 'DATA RESEARCH',
+    description:
+      'Historical and peer-calibrated analysis of university rankings designed to detect internal inconsistencies, unusual trajectories, and ranking discrepancies.',
+    tags: ['Data Analysis', 'Research', 'Ranking Systems', 'Statistics'],
+    status: 'RESEARCH WORK',
+    scope: 'DATA / STATISTICS / AUDIT',
+    evidence: 'Published research artifact',
+    link:
+      'https://www.researchgate.net/publication/412783335_Auditing_Internal_Consistency_in_Webometrics_University_Rankings_A_Bidirectional_Historical_and_Peer-Calibrated_Approach',
   },
 ]
 
