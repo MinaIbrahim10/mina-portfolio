@@ -149,16 +149,15 @@ const projects: Project[] = [
   },
   {
     index: '06',
-    title: 'Webometrics Ranking Audit',
-    eyebrow: 'DATA RESEARCH',
+    title: 'Usage Metering & Billing Engine',
+    eyebrow: 'AI INFRASTRUCTURE / BILLING',
     description:
-      'Historical and peer-calibrated analysis of university rankings designed to detect internal inconsistencies, unusual trajectories, and ranking discrepancies.',
-    tags: ['Data Analysis', 'Research', 'Ranking Systems', 'Statistics'],
-    status: 'RESEARCH WORK',
-    scope: 'DATA / STATISTICS / AUDIT',
-    evidence: 'Published research artifact',
-    link:
-      'https://www.researchgate.net/publication/412783335_Auditing_Internal_Consistency_in_Webometrics_University_Rankings_A_Bidirectional_Historical_and_Peer-Calibrated_Approach',
+      'A multi-tenant usage metering and billing backend with quota enforcement, exact token-cost accounting, Stripe synchronization, and replay-safe webhooks.',
+    tags: ['FastAPI', 'PostgreSQL', 'Stripe', 'Usage Metering'],
+    status: 'PUBLIC · OPEN SOURCE',
+    scope: 'METERING / BILLING / INFRASTRUCTURE',
+    evidence: 'GitHub repository',
+    link: 'https://github.com/MinaIbrahim10/usage-metering-billing-engine',
   },
 ]
 
